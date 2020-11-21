@@ -48,6 +48,9 @@ export class Transmission extends EventTarget {
     this.addEventListener('torrent-selection-changed', (event_) =>
       this.action_manager.update(event_)
     );
+    this.addEventListener('torrents-updated', (event_) => {
+      this.action_manager.update(event_);
+    });
 
     // Initialize the implementation fields
     this.filterText = '';
@@ -60,7 +63,7 @@ export class Transmission extends EventTarget {
 
     this.boundPopupCloseListener = this.popupCloseListener.bind(this);
     this.dispatchSelectionChangedSoon = debounce(
-      () => this._dispatchSelectionChanged(),
+      () => this._dispatchActionStateUpdateNeeded('torrent-selection-changed'),
       200
     );
 
@@ -416,14 +419,14 @@ export class Transmission extends EventTarget {
     this.dispatchSelectionChangedSoon();
   }
 
-  _dispatchSelectionChanged() {
+  _dispatchActionStateUpdateNeeded(eventName) {
     const nonselected = [];
     const selected = [];
     this._rows.forEach((r) =>
       (r.isSelected() ? selected : nonselected).push(r.getTorrent())
     );
 
-    const event = new Event('torrent-selection-changed');
+    const event = new Event(eventName);
     event.nonselected = nonselected;
     event.selected = selected;
     this.dispatchEvent(event);
@@ -631,6 +634,7 @@ export class Transmission extends EventTarget {
 
       const keys = table.shift();
       const o = {};
+      let updatedTorrentsCount = 0;
       for (const row of table) {
         keys.forEach((key, index) => {
           o[key] = row[index];
@@ -640,6 +644,7 @@ export class Transmission extends EventTarget {
         if (t) {
           const needed = t.needsMetaData();
           t.refresh(o);
+          updatedTorrentsCount += 1;
           if (needed && !t.needsMetaData()) {
             needinfo.push(id);
           }
@@ -667,6 +672,10 @@ export class Transmission extends EventTarget {
       if (removed_ids) {
         this._deleteTorrents(removed_ids);
         this.refilterSoon();
+      }
+
+      if (updatedTorrentsCount > 0) {
+        this._dispatchActionStateUpdateNeeded('torrents-updated');
       }
     });
   }
