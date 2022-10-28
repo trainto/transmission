@@ -29,6 +29,7 @@ import {
   setEnabled,
   setTextContent,
   movePopup,
+  Theme,
 } from './utils.js';
 
 export class Transmission extends EventTarget {
@@ -259,6 +260,8 @@ export class Transmission extends EventTarget {
     for (const [key, value] of this.prefs.entries()) {
       this._onPrefChanged(key, value);
     }
+
+    Theme.init();
   }
 
   _openTorrentFromUrl() {

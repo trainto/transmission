@@ -93,56 +93,107 @@ $image-play-circle-idle: '../img/play-circle-idle.svg';
   --color-progressbar-seed-queued-2: #{$green-300};
   --color-progressbar-seed-1: #{$green-300};
   --color-progressbar-seed-2: #{$green-700};
-  color-scheme: light dark;
-  @media (prefers-color-scheme: dark) {
-    --color-bg-hover: #{$nice-grey};
-    --color-fg-primary: #fff;
-    --color-bg-primary: #{$grey-800};
-    --color-bg-odd: #{$grey-900};
-    --color-bg-even: #{$grey-800};
-    --color-bg-menu: #{$grey-800};
-    --color-fg-secondary: #{$nice-grey};
-    --color-fg-on-popup: #{$nice-grey};
-    --color-fg-disabled: #{$nice-grey};
-    --color-bg-popup: #{$grey-800};
-    --color-bg-warn: #cf6679;
-    --color-fg-warn: #{$dark-mode-black};
-    --color-border: #{$nice-grey};
-    --color-border-selected: #d0d7de;
-    --color-fg-tertiary: #{$grey-500};
-    --color-toolbar-background: #{$grey-800};
-    --color-inspector-background: #{$grey-800};
-    --color-inspector-tabs: #{$nice-grey};
-    --color-bg-selected: #{$default-accent-color-dark};
-    --color-bg-tabs: #{$grey-700};
-    --color-progressbar-background-1: #426389;
-    --color-default-border: #{$default-border-dark};
-  }
-  @media (prefers-color-scheme: light) {
-    --color-bg-hover: #{$nice-grey};
-    --color-fg-primary: #404040;
-    --color-bg-primary: #fff;
-    --color-bg-even: #{$white};
-    --color-bg-odd: #{$nice-grey};
-    --color-bg-menu: #{$nice-grey};
-    --color-fg-on-popup: #{$grey-900};
-    --color-bg-popup: #{$white};
-    --color-fg-secondary: #{$grey-500};
-    --color-border: #{$grey-500};
-    --color-border-selected: #d0d7de;
-    --color-fg-tertiary: #{$grey-500};
-    --color-bg-warn: #e4606d5b;
-    --color-fg-warn: #cf212e;
-    --color-fg-disabled: #{$grey-500};
-    --color-toolbar-background: #{$nice-grey};
-    --color-inspector-background: #{$white};
-    --color-bg-tabs: #{$nice-grey-darker};
-    --color-inspector-tabs: #{$nice-grey};
-    --color-bg-selected: #{$default-accent-color};
-    --color-progressbar-background-1: #{$nice-grey};
-    --color-default-border: #{$default-border-light};
-    --color-dialog-border: #{$nice-grey};
-  }
+  // color-scheme: light dark;
+  // @media (prefers-color-scheme: dark) {
+  //   --color-bg-hover: #{$nice-grey};
+  //   --color-fg-primary: #fff;
+  //   --color-bg-primary: #{$grey-800};
+  //   --color-bg-odd: #{$grey-900};
+  //   --color-bg-even: #{$grey-800};
+  //   --color-bg-menu: #{$grey-800};
+  //   --color-fg-secondary: #{$nice-grey};
+  //   --color-fg-on-popup: #{$nice-grey};
+  //   --color-fg-disabled: #{$nice-grey};
+  //   --color-bg-popup: #{$grey-800};
+  //   --color-bg-warn: #cf6679;
+  //   --color-fg-warn: #{$dark-mode-black};
+  //   --color-border: #{$nice-grey};
+  //   --color-border-selected: #d0d7de;
+  //   --color-fg-tertiary: #{$grey-500};
+  //   --color-toolbar-background: #{$grey-800};
+  //   --color-inspector-background: #{$grey-800};
+  //   --color-inspector-tabs: #{$nice-grey};
+  //   --color-bg-selected: #{$default-accent-color-dark};
+  //   --color-bg-tabs: #{$grey-700};
+  //   --color-progressbar-background-1: #426389;
+  //   --color-default-border: #{$default-border-dark};
+  // }
+  // @media (prefers-color-scheme: light) {
+  //   --color-bg-hover: #{$nice-grey};
+  //   --color-fg-primary: #404040;
+  //   --color-bg-primary: #fff;
+  //   --color-bg-even: #{$white};
+  //   --color-bg-odd: #{$nice-grey};
+  //   --color-bg-menu: #{$nice-grey};
+  //   --color-fg-on-popup: #{$grey-900};
+  //   --color-bg-popup: #{$white};
+  //   --color-fg-secondary: #{$grey-500};
+  //   --color-border: #{$grey-500};
+  //   --color-border-selected: #d0d7de;
+  //   --color-fg-tertiary: #{$grey-500};
+  //   --color-bg-warn: #e4606d5b;
+  //   --color-fg-warn: #cf212e;
+  //   --color-fg-disabled: #{$grey-500};
+  //   --color-toolbar-background: #{$nice-grey};
+  //   --color-inspector-background: #{$white};
+  //   --color-bg-tabs: #{$nice-grey-darker};
+  //   --color-inspector-tabs: #{$nice-grey};
+  //   --color-bg-selected: #{$default-accent-color};
+  //   --color-progressbar-background-1: #{$nice-grey};
+  //   --color-default-border: #{$default-border-light};
+  //   --color-dialog-border: #{$nice-grey};
+  // }
+}
+
+html[data-theme='dark'] {
+  --color-bg-hover: #{$nice-grey};
+  --color-fg-primary: #fff;
+  --color-bg-primary: #{$grey-800};
+  --color-bg-odd: #{$grey-900};
+  --color-bg-even: #{$grey-800};
+  --color-bg-menu: #{$grey-800};
+  --color-fg-secondary: #{$nice-grey};
+  --color-fg-on-popup: #{$nice-grey};
+  --color-fg-disabled: #{$nice-grey};
+  --color-bg-popup: #{$grey-800};
+  --color-bg-warn: #cf6679;
+  --color-fg-warn: #{$dark-mode-black};
+  --color-border: #{$nice-grey};
+  --color-border-selected: #d0d7de;
+  --color-fg-tertiary: #{$grey-500};
+  --color-toolbar-background: #{$grey-800};
+  --color-inspector-background: #{$grey-800};
+  --color-inspector-tabs: #{$nice-grey};
+  --color-bg-selected: #{$default-accent-color-dark};
+  --color-bg-tabs: #{$grey-700};
+  --color-progressbar-background-1: #426389;
+  --color-default-border: #{$default-border-dark};
+}
+
+html[data-theme='light'] {
+  --color-bg-hover: #{$nice-grey};
+  --color-fg-primary: #404040;
+  --color-bg-primary: #fff;
+  --color-bg-even: #{$white};
+  --color-bg-odd: #{$nice-grey};
+  --color-bg-menu: #{$nice-grey};
+  --color-fg-on-popup: #{$grey-900};
+  --color-bg-popup: #{$white};
+  --color-fg-secondary: #{$grey-500};
+  --color-border: #{$grey-500};
+  --color-border-selected: #d0d7de;
+  --color-fg-tertiary: #{$grey-500};
+  --color-bg-warn: #e4606d5b;
+  --color-fg-warn: #cf212e;
+  --color-fg-disabled: #{$grey-500};
+  --color-toolbar-background: #{$nice-grey};
+  --color-inspector-background: #{$white};
+  --color-bg-tabs: #{$nice-grey-darker};
+  --color-inspector-tabs: #{$nice-grey};
+  --color-bg-selected: #{$default-accent-color};
+  --color-progressbar-background-1: #{$nice-grey};
+  --color-default-border: #{$default-border-light};
+  --color-dialog-border: #{$nice-grey};
 }
 
 html,

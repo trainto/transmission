@@ -322,3 +322,34 @@ export function setTextContent(e, text) {
     e.textContent = text;
   }
 }
+
+export const Theme = {
+  init: () => {
+    const theme = Theme.load();
+    if (theme) {
+      Theme.toggle(theme);
+    } else {
+      const mediaDark = window.matchMedia(
+        '(prefers-color-scheme: dark)'
+      ).matches;
+      if (mediaDark) {
+        Theme.toggle('dark');
+      } else {
+        Theme.toggle('light');
+      }
+    }
+  },
+
+  load: () => {
+    return localStorage.getItem('theme');
+  },
+
+  save: (theme) => {
+    localStorage.setItem('theme', theme);
+  },
+
+  toggle: (theme) => {
+    const html = document.querySelector('html');
+    html.dataset.theme = theme;
+  },
+};

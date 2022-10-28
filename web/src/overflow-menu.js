@@ -6,7 +6,7 @@
 import { Formatter } from './formatter.js';
 import { Prefs } from './prefs.js';
 import { RPC } from './remote.js';
-import { OutsideClickListener, setEnabled } from './utils.js';
+import { OutsideClickListener, setEnabled, Theme } from './utils.js';
 
 function make_section(classname, title) {
   const section = document.createElement('fieldset');
@@ -91,6 +91,7 @@ export class OverflowMenu extends EventTarget {
   }
 
   _onPrefsChange(event_) {
+    console.log(event_);
     switch (event_.key) {
       case Prefs.SortDirection:
       case Prefs.SortMode:
@@ -153,18 +154,60 @@ export class OverflowMenu extends EventTarget {
     options.id = 'display-options';
     section.append(options);
 
-    // sort mode
+    // theme
 
     let div = document.createElement('div');
     div.classList.add('table-row');
     options.append(div);
 
     let label = document.createElement('label');
+    label.id = 'display-theme-label';
+    label.textContent = 'Theme';
+    div.append(label);
+
+    let select = document.createElement('select');
+    select.id = 'display-theme-select';
+    select.dataset.pref = Prefs.Theme;
+    div.append(select);
+
+    const theme = [
+      ['default', 'Select'],
+      ['light', 'Light'],
+      ['dark', 'Dark'],
+    ];
+    for (const [value, text] of theme) {
+      const option = document.createElement('option');
+      option.value = value;
+      option.textContent = text;
+      if (value === 'default') {
+        option.selected = true;
+        option.disabled = true;
+        option.hidden = true;
+      }
+      select.append(option);
+    }
+
+    const themeSaved = Theme.load();
+    if (themeSaved) {
+      select.value = themeSaved;
+    }
+    select.addEventListener('change', (event_) => {
+      Theme.toggle(event_.target.value);
+      Theme.save(event_.target.value);
+    });
+
+    // sort mode
+
+    div = document.createElement('div');
+    div.classList.add('table-row');
+    options.append(div);
+
+    label = document.createElement('label');
     label.id = 'display-sort-mode-label';
     label.textContent = 'Sort by';
     div.append(label);
 
-    let select = document.createElement('select');
+    select = document.createElement('select');
     select.id = 'display-sort-mode-select';
     select.dataset.pref = Prefs.SortMode;
     div.append(select);
