@@ -29,6 +29,7 @@ import {
   setEnabled,
   setTextContent,
   movePopup,
+  applyDiff,
 } from './utils.js';
 
 export class Transmission extends EventTarget {
@@ -937,6 +938,7 @@ TODO: fix this when notifications get fixed
     const filter_tracker = this.filterTracker;
     const renderer = this.torrentRenderer;
     const list = this.elements.torrent_list;
+    const listClone = list.cloneNode(true);
 
     let filter_text = null;
     let labels = null;
@@ -949,9 +951,9 @@ TODO: fix this when notifications get fixed
       labels = [];
     }
 
-    const countRows = () => [...list.children].length;
+    const countRows = () => [...listClone.children].length;
     const countSelectedRows = () =>
-      [...list.children].reduce(
+      [...listClone.children].reduce(
         (n, e) => (n + e.classList.contains('selected') ? 1 : 0),
         0
       );
@@ -964,9 +966,7 @@ TODO: fix this when notifications get fixed
     delete this.refilterTimer;
 
     if (rebuildEverything) {
-      while (list.firstChild) {
-        list.firstChild.remove();
-      }
+      listClone.textContent = '';
       this._rows = [];
       this.dirtyTorrents = new Set(Object.keys(this._torrents));
     }
@@ -1050,7 +1050,7 @@ TODO: fix this when notifications get fixed
         const e = row.getElement();
 
         if (ci !== cmax) {
-          list.insertBefore(e, clean_rows[ci].getElement());
+          listClone.insertBefore(e, clean_rows[ci].getElement());
         } else {
           frag.append(e);
         }
@@ -1058,7 +1058,7 @@ TODO: fix this when notifications get fixed
         rows.push(row);
       }
     }
-    list.append(frag);
+    listClone.append(frag);
 
     // update our implementation fields
     this._rows = rows;
@@ -1071,7 +1071,11 @@ TODO: fix this when notifications get fixed
       e.classList.toggle('odd', !even);
     }
 
-    this._updateStatusbar();
+    requestAnimationFrame(() => {
+      applyDiff(document.querySelector('#torrent-container'), list, listClone);
+      this._updateStatusbar();
+    });
+
     if (
       old_sel_count !== countSelectedRows() ||
       old_row_count !== countRows()
